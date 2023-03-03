@@ -56,16 +56,46 @@ def posts_answer():
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
-            id_post = jsn['id_post']
+            post_id = jsn['post_id']
             body = jsn['text_body']
             try:
                 doc = jsn['document']
             except: doc = None
-            users.create_answ(login, body, id_post, doc)
+            users.create_answ(login, body, post_id, doc)
             return jsonify({'status': 'True'})
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
+
+@app.route('/posts', methods=['POST'])
+def posts_read():
+    try:
+        jsn = loads(request.data.decode()[5:])
+        login = jsn['login']
+        passw = jsn['passw']
+        if users.check_user(login, passw):
+            try:
+                label = jsn['label']
+            except: label = None
+            return jsonify(users.read_posts(label))
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        print(_ex)
+        return jsonify({'status': 'Erore'})
+    
+@app.route('/posts/question', methods=['POST'])
+def posts_read_question():
+    # try:
+    jsn = loads(request.data.decode()[5:])
+    login = jsn['login']
+    passw = jsn['passw']
+    if users.check_user(login, passw):
+        post_id = jsn['post_id']
+        return jsonify(users.read_current_post(post_id))
+    return jsonify({'status': 'IncorrectValue'})
+    # except Exception as _ex:
+    #     print(_ex)
+    #     return jsonify({'status': 'Erore'})
 
 app.run(debug=DEBUG_MODE, host=ALLOW_HOST, port=LOAD_PORT)

@@ -35,4 +35,35 @@ class User:
     def create_answ(self, login, body, id_post, doc):
         if doc != None:
             doc = save_document(login, doc)
-        self.db.write('answ', 'login, body, id_post, doc', f"'{login}', '{body}', '{id_post}', '{doc}'")
+        self.db.write('answ', 'login, body, id_post, doc, statis', f"'{login}', '{body}', '{id_post}', '{doc}', '0'")
+
+    def read_posts(self, label):
+        tbl = 'posts' if label==None else f"posts WHERE label='{label}'"
+        ans = self.db.read(tbl, '*')
+        dt = {}
+        for i in range(len(ans)):
+            dt[str(i)] = {'id':ans[i][0],
+                          'login':ans[i][1],
+                          'text_body':ans[i][2],
+                          'description':ans[i][3],
+                          'label':ans[i][4],
+                          'doc':ans[i][5]}
+        return dt
+    
+    def read_current_post(self, id_post):
+        ans = self.db.read(f"answ WHERE id_post='{id_post}'", '*')
+        post = self.db.read(f"posts WHERE id='{id_post}'", '*')[0]
+        print(ans, post)
+        dt = {'post':   { 'id':post[0],
+                          'login':post[1],
+                          'text_body':post[2],
+                          'description':post[3],
+                          'label':post[4],
+                          'doc':post[5]}}
+        for i in range(len(ans)):
+            dt[str(i)] = {'id':ans[i][0],
+                          'statis':ans[i][2],
+                          'login':ans[i][3],
+                          'text_body':ans[i][4],
+                          'doc':ans[i][5]}
+        return dt
