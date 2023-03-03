@@ -1,6 +1,6 @@
 # Server
 ALLOW_HOST      = "0.0.0.0"
-LOAD_PORT       = 2023
+LOAD_PORT       = 8023
 DEBUG_MODE      = True
 
 # Connect DB

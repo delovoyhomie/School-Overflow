@@ -25,3 +25,6 @@ class User:
     def check_user(self, login, passw):
         hpassw = self.db.read_one('users', 'passw', f"login='{login}'")[0]
         return check_password(hpassw, passw)
+    
+    def create_post(self, login, description, body, label, doc):
+        pass
