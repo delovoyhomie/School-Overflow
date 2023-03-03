@@ -21,11 +21,11 @@ class DB:
     
         with self.connection.cursor() as cursor:
             cursor.execute(
-                """CREATE TABLE IF NOT EXISTS user (
+                """CREATE TABLE IF NOT EXISTS users (
                     id      serial PRIMARY KEY,    
-                    login   varchar(40) NOT NULL,
-                    tg_id   TEXT UNIQUE NOT NULL,
-                    passw   varchar(40) NOT NULL
+                    login   varchar(40) UNIQUE NOT NULL,
+                    passw   varchar(40) NOT NULL,
+                    tg_id   TEXT UNIQUE
                 );
                     CREATE TABLE IF NOT EXISTS posts (
                     id      serial PRIMARY KEY,    
@@ -56,10 +56,10 @@ class DB:
         except:
             return 0
     
-    def read_one(self, table, param):
+    def read_one(self, table, param, values):
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(f"""SELECT {param} FROM {table}""")
+                cursor.execute(f"""SELECT {param} FROM {table} WHERE {values}""")
                 return cursor.fetchone()
         except:
             return 0
