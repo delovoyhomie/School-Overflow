@@ -28,14 +28,13 @@ class DB:
                     tg_id   TEXT UNIQUE
                 );
                     CREATE TABLE IF NOT EXISTS posts (
-                    id      serial PRIMARY KEY,    
-                    login   varchar(40) NOT NULL,
-                    tag     varchar(40),
+                    id          serial PRIMARY KEY,    
+                    login       varchar(40) NOT NULL,
                     description TEXT NOT NULL,
-                    body    TEXT NOT NULL,
-                    doc     TEXT
+                    body        TEXT NOT NULL,
+                    label       varchar(40),
+                    doc         TEXT
                 );
-
     """
             )
             
