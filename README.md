@@ -9,12 +9,12 @@ The non-commercial product was created by the Autobots team at the Q1 March 2023
 - passw
 
 #### /posts/create
-- login
-- passw
-- description
-- text_body
-- label
-- document
+- login         (обязательный)
+- passw         (обязательный)
+- description   (обязательный)
+- text_body     (обязательный)
+- label         (не обязательный)
+- document      (не обязательный)
 
 Примечание document хранит файлы в base64 разделённый пробелами.
 

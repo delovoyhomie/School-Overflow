@@ -27,4 +27,4 @@ class User:
         return check_password(hpassw, passw)
     
     def create_post(self, login, description, body, label, doc):
-        pass
+        self.db.write('posts', 'login, description, body, label, doc', f'{login}, {description}, {body}, {label}, {doc}')

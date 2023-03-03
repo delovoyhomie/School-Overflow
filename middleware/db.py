@@ -21,13 +21,14 @@ class DB:
     
         with self.connection.cursor() as cursor:
             cursor.execute(
-                """CREATE TABLE IF NOT EXISTS users (
+                """
+                CREATE TABLE IF NOT EXISTS users (
                     id      serial PRIMARY KEY,    
                     login   varchar(40) UNIQUE NOT NULL,
                     passw   varchar(40) NOT NULL,
-                    tg_id   TEXT UNIQUE
+                    tg_id   serial UNIQUE
                 );
-                    CREATE TABLE IF NOT EXISTS posts (
+                CREATE TABLE IF NOT EXISTS posts (
                     id          serial PRIMARY KEY,    
                     login       varchar(40) NOT NULL,
                     description TEXT NOT NULL,
@@ -35,8 +36,14 @@ class DB:
                     label       varchar(40),
                     doc         TEXT
                 );
-    """
-            )
+                CREATE TABLE IF NOT EXISTS answ (
+                    id          serial PRIMARY KEY,
+                    id_posts    serial NOT NULL,
+                    login       varchar(40) NOT NULL,
+                    body        TEXT NOT NULL,
+                    doc         TEXT
+                );
+    """)
             
             # connection.commit()
             print("[INFO] Table created successfully")

@@ -44,7 +44,7 @@ def posts_list():
                 doc = jsn['document']
                 doc = save_document(login, doc)
             except: doc = None
-            users.create_post()
+            users.create_post(login)
             return jsonify({'status': 'True'})
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
