@@ -38,7 +38,7 @@ class DB:
                 );
                 CREATE TABLE IF NOT EXISTS answ (
                     id          serial PRIMARY KEY,
-                    id_posts    serial NOT NULL,
+                    id_post     serial NOT NULL,
                     login       varchar(40) NOT NULL,
                     body        TEXT NOT NULL,
                     doc         TEXT

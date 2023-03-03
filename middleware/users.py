@@ -2,6 +2,7 @@ import requests
 
 from middleware.db import DB
 from middleware.hasher import *
+from middleware.document import save_document
 
 
 class User:
@@ -27,4 +28,11 @@ class User:
         return check_password(hpassw, passw)
     
     def create_post(self, login, description, body, label, doc):
-        self.db.write('posts', 'login, description, body, label, doc', f'{login}, {description}, {body}, {label}, {doc}')
+        if doc != None:
+            doc = save_document(login, doc)
+        self.db.write('posts', 'login, description, body, label, doc', f"'{login}', '{description}', '{body}', '{label}', '{doc}'")
+
+    def create_answ(self, login, body, id_post, doc):
+        if doc != None:
+            doc = save_document(login, doc)
+        self.db.write('answ', 'login, body, id_post, doc', f"'{login}', '{body}', '{id_post}', '{doc}'")

@@ -6,7 +6,6 @@ from random import choice
 def generate_name_files(len_token=20):
     GEN_CONST = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
                  'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    print(len(GEN_CONST))
     new_token = ""
     for _ in range(len_token):
         new_token += choice(GEN_CONST)
@@ -29,9 +28,13 @@ def save_document(user: str, text: str):
         
     
 if __name__ == '__main__':
-    with open('README.md', 'rb') as file:
+    import os
+    current, dirs, files = os.walk('/home/dmodv/Изображения/Снимки экрана').__next__()
+    dt = ''
+    
+    with open('/home/dmodv/Изображения/Снимки экрана/'+files[0], 'rb') as file:
         data = file.read()
-    data = b64encode(data).decode()
-    data = data+' '+data+' '+data+' '+data
-    print(data)
-    save_document('5', data)
+    dt += b64encode(data).decode()
+    with open(f"static/t.txt", 'w') as file:
+        file.write(dt)
+    print(dt)
