@@ -95,11 +95,12 @@ class User:
         return dt
     
     def read_current_user(self, login):
-        user = self.db.read_one('users', 'id,login,mail' , f"login='{login}'")
+        user = self.db.read_one('users', 'id,login,mail,created_at' , f"login='{login}'")
         print(user)
         dt = {'user':   { 'id':user[0],
                           'login':user[1],
-                          'mail': user[2]},
+                          'mail': user[2],
+                          'created_at': user[3]},
                           'answer': [],
                           'posts': []}
         posts = self.db.read(f"posts WHERE login='{login}'", 'id,description,label,status')
