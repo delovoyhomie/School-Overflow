@@ -26,7 +26,8 @@ class DB:
                     id      serial PRIMARY KEY,    
                     login   varchar(40) UNIQUE NOT NULL,
                     passw   varchar(40) NOT NULL,
-                    mail   serial UNIQUE
+                    mail    varchar(100) UNIQUE,
+                    created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS posts (
                     id          serial PRIMARY KEY,    
@@ -34,7 +35,8 @@ class DB:
                     description TEXT NOT NULL,
                     body        TEXT NOT NULL,
                     label       varchar(40),
-                    doc         TEXT
+                    doc         TEXT,
+                    created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS answ (
                     id          serial PRIMARY KEY,
@@ -42,10 +44,11 @@ class DB:
                     statis      serial NOT NULL,
                     login       varchar(40) NOT NULL,
                     body        TEXT NOT NULL,
-                    doc         TEXT
+                    doc         TEXT,
+                    created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
     """)
-            
+    
             # connection.commit()
             print("[INFO] Table created successfully")
     

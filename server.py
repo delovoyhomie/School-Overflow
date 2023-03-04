@@ -86,7 +86,7 @@ def posts_read():
             try:
                 filter = jsn['filter']
             except:
-                label = None
+                filter = None
             return jsonify(users.read_posts(filter))
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
@@ -94,15 +94,27 @@ def posts_read():
         return jsonify({'status': 'Erore'})
 
 
-@app.route('/posts/question', methods=['POST'])
-def posts_read_question():
+@app.route('/posts/question/<int:post_id>', methods=['POST'])
+def posts_read_question(post_id):
     try:
         jsn = loads(request.data.decode()[5:])
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
-            post_id = jsn['post_id']
-            return jsonify(users.read_current_post(post_id))
+            return jsonify(users.read_current_post(str(post_id)))
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        print(_ex)
+        return jsonify({'status': 'Erore'})
+    
+@app.route('/profile', methods=['POST'])
+def profile_info():
+    try:
+        jsn = loads(request.data.decode()[5:])
+        login = jsn['login']
+        passw = jsn['passw']
+        if users.check_user(login, passw):
+            return jsonify(users.read_current_user(login))
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
