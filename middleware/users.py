@@ -89,7 +89,7 @@ class User:
                             'doc':ans[i][4],
                             'create_at':ans[5],
                             'id_answ':ans[6]}
-        else: dt['answer']['0'] = 'None'
+        else: dt['0'] = 'None'
             
         return dt
     

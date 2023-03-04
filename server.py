@@ -128,11 +128,11 @@ def posts_read():
 
 @app.route('/question/<int:post_id>', methods=['POST'])
 def posts_read_question(post_id):
-    # try:
-    return jsonify(users.read_current_post(str(post_id)))
-    # except Exception as _ex:
-    #     print(_ex)
-    #     return jsonify({'status': 'Erore'})
+    try:
+        return jsonify(users.read_current_post(str(post_id)))
+    except Exception as _ex:
+        print(_ex)
+        return jsonify({'status': 'Erore'})
     
 @app.route('/answer/<int:id>/statis', methods=['POST'])
 def answer_statis(id):
