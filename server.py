@@ -18,22 +18,29 @@ def homes():
 
 @app.route('/new_user', methods=['POST'])
 def new_user():
-    try:
-        jsn = loads(request.data.decode()[5:])
-        login = jsn['login']
-        passw = jsn['passw']
-        mail = jsn['mail']
-        print(login, passw, mail)
-        return jsonify(users.create_user(login, passw,mail))
-    except Exception as _ex:
-        print(_ex)
-        return jsonify({'status': 'False'})
+    # try:s
+    jsn = loads(request.data)
+    login = jsn['login']
+    passw = jsn['passw']
+    mail = jsn['mail']
+    return jsonify(users.create_user(login, passw,mail))
+    # except Exception as _ex:
+    #     print(_ex)
+    #     return jsonify({'status': 'False'})
+    
+# @app.route('/confirmation/<link>', methods=['POST'])
+# def confirmation_new_user(link):
+#     try:
+#         return jsonify(users.create_user(login, passw,mail))
+#     except Exception as _ex:
+#         print(_ex)
+#         return jsonify({'status': 'False'})
 
 
-@app.route('/posts/create', methods=['POST'])
+@app.route('/question/create', methods=['POST'])
 def posts_create():
     try:
-        jsn = loads(request.data.decode()[5:])
+        jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
@@ -55,31 +62,46 @@ def posts_create():
         return jsonify({'status': 'Erore'})
 
 
-@app.route('/posts/answer', methods=['POST'])
-def posts_answer():
+@app.route('/question/<int:post_id>/answer', methods=['POST'])
+def posts_answer(post_id):
     try:
-        jsn = loads(request.data.decode()[5:])
+        jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
-            post_id = jsn['post_id']
+            post_id = str(post_id)
             body = jsn['text_body']
             try:
                 doc = jsn['document']
             except:
                 doc = None
-            users.create_answ(login, body, post_id, doc)
+            try:
+                id_answ = jsn['id_answ']
+            except:
+                id_answ = None
+            users.create_answ(login, body, post_id, doc, id_answ)
             return jsonify({'status': 'True'})
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
 
+@app.route('/auth', methods=['POST'])
+def auth():
+    try:
+        jsn = loads(request.data)
+        login = jsn['login']
+        passw = jsn['passw']
+        if users.check_user(login, passw):
+            return jsonify({'status': 'True'})
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        return jsonify({'status': 'Erore'})
 
-@app.route('/posts', methods=['POST'])
+@app.route('/questions', methods=['POST'])
 def posts_read():
     try:
-        jsn = loads(request.data.decode()[5:])
+        jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
@@ -94,10 +116,10 @@ def posts_read():
         return jsonify({'status': 'Erore'})
 
 
-@app.route('/posts/question/<int:post_id>', methods=['POST'])
+@app.route('/question/<int:post_id>', methods=['POST'])
 def posts_read_question(post_id):
     try:
-        jsn = loads(request.data.decode()[5:])
+        jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):
@@ -107,10 +129,14 @@ def posts_read_question(post_id):
         print(_ex)
         return jsonify({'status': 'Erore'})
     
+@app.route('/question/<int:post_id>/statis')
+def question_statis(post_id):
+    return jsonify({'status': 'True'})
+    
 @app.route('/profile', methods=['POST'])
 def profile_info():
     try:
-        jsn = loads(request.data.decode()[5:])
+        jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
         if users.check_user(login, passw):

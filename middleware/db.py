@@ -23,10 +23,11 @@ class DB:
             cursor.execute(
                 """
                 CREATE TABLE IF NOT EXISTS users (
-                    id      serial PRIMARY KEY,    
-                    login   varchar(40) UNIQUE NOT NULL,
-                    passw   varchar(40) NOT NULL,
-                    mail    varchar(100) UNIQUE,
+                    id          serial PRIMARY KEY,    
+                    login       varchar(40) UNIQUE NOT NULL,
+                    passw       varchar(40) NOT NULL,
+                    mail        varchar(100) UNIQUE NOT NULL,
+                    mail_status varchar(30) NOT NULL,
                     created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS posts (
@@ -34,17 +35,20 @@ class DB:
                     login       varchar(40) NOT NULL,
                     description TEXT NOT NULL,
                     body        TEXT NOT NULL,
-                    label       varchar(40),
+                    label       TEXT,
                     doc         TEXT,
+                    status      INTEGER DEFAULT 0,
                     created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS answ (
                     id          serial PRIMARY KEY,
                     id_post     serial NOT NULL,
+                    id_answ     serial,
                     statis      serial NOT NULL,
                     login       varchar(40) NOT NULL,
                     body        TEXT NOT NULL,
                     doc         TEXT,
+                    status      INTEGER DEFAULT 0,
                     created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
     """)

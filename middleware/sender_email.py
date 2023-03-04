@@ -1,62 +1,54 @@
-# from email.mime.multipart import MIMEMultipart
-# from email.mime.text import MIMEText
-
-# import smtplib
-# login = 'shooloverflow@yandex.ru'
-# password = 'voikyszpsjtqypsj'
-
-# def send_email(to_addr, subject, text):
-#     msg = MIMEMultipart()
-#     msg['From'] = login
-#     msg['TO'] = login
-#     msg['Subject'] = subject
-#     msg.attach(
-#         MIMEText(text, 'plain')
-#     )
-
-#     server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
-#     server.ehlo(login)
-#     server.login(login, password)
-#     server.auth_plain()
-#     server.send_message(msg)
-#     server.quit()
-
 import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from middleware.document import generate_name_files as gener
+from common.preferences import FULL_LINK
 
-def send_email(from_addr, to_addr, subject, text, encode='utf-8'):
-
-    # оставшиеся настройки
-    passwd = "xDdlAOe?CXD#TxjT"
-    server = "smtp.yandex.ru"
-    port = 587
-    charset = f'Content-Type: text/plain; charset={encode}'
-    mime = 'MIME-Version: 1.0'
-    # формируем тело письма
-    body = "\r\n".join((f"From: {from_addr}", f"To: {to_addr}", 
-           f"Subject: {subject}", mime, charset, "", text))
-
-    try:
-        # подключаемся к почтовому сервису
-        smtp = smtplib.SMTP(server, port)
-        smtp.starttls()
-        smtp.ehlo()
-        # логинимся на почтовом сервере
-        smtp.login(from_addr, passwd)
-        # пробуем послать письмо
-        smtp.sendmail(from_addr, to_addr, body.encode(encode))
-    except smtplib.SMTPException as err:
-        print('Что - то пошло не так...')
-        raise err
-    finally:
-        smtp.quit()
-
-if __name__ == "__main__":
-    from_addr = "schooloverflow@yandex.ru"
-    to_addr = "dmodv@vk.com"
-    subject = "Тестовое письмо от Python."
-    text = "Отправкой почты управляет Python!"
-    send_email(from_addr, to_addr, subject, text)
+class Emailer:
+    def __init__(self) -> None:
+        self.sender_email = "SchoolOverflows@yandex.ru"
+        self.smtp_username = "SchoolOverflows@yandex.ru"
+        self.smtp_password = "ftS-9Yh-mpq-A6p"
 
 
-# if __name__=='__main__':
-#     send_email('dmodv@vk.com', 'HEader', 'testing msg')
+    def send_email(self, recipient_email, subject, text) -> bool:
+
+        # Создание объекта MIMEMultipart и добавление темы и текста письма
+        msg = MIMEMultipart()
+        msg['From'] = self.sender_email
+        msg['To'] = recipient_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(text))
+
+        # Отправка письма через SMTP-сервер Yandex
+        try:
+            smtp_connection = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
+            smtp_connection.login(self.smtp_username, self.smtp_password)
+            smtp_connection.sendmail(self.sender_email, recipient_email, msg.as_string())
+            smtp_connection.close()
+            print("Email sent successfully!")
+            return True
+        except Exception as e:
+            print("Error sending email: ", e)
+            return False
+        
+    def confirmation_by_email(self, address):
+        try:
+            link = gener(30)
+            text = f'''Здравствуйте!
+На сайте schooloverflow.ru была произведена регистрация с использованием вашей электронной почты.
+Email: {address}
+Для подтверждения регистрации пройдите по ссылке:
+{FULL_LINK}/{link}
+
+С уважением,
+Администрация schooloverflow.ru'''
+            if self.send_email(address, 'Подтверждение аккаунта SchoolOverflow', text):
+                return link
+            return False
+        except:
+            return False
+        
+    def test(self):
+        self.confirmation_by_email('georgeboiko0411@gmail.com')
