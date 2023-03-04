@@ -31,8 +31,8 @@ class User:
             return "<h1>Ссылка не действительна</h1>"
     
     def check_user(self, login, passw):
-        hpassw, mls = self.db.read_one('users', 'passw,mail_status', f"login='{login}'")[0]
-        if mls != '1':
+        hpassw = self.db.read_one('users', 'passw,mail_status', f"login='{login}'")[0]
+        if 0:
             return 'mail'
         return check_password(hpassw, passw)
     
