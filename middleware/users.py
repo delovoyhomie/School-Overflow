@@ -125,7 +125,7 @@ class User:
         return dt
     
     def upd_statis(self, id, operator):
-        stat = self.db.read(f"answ WHERE id='{id}'", 'statis')
+        stat = self.db.read(f"answ WHERE id='{id}'", 'statis')[0][0]
         print(stat)
         if operator == '+':
             stat = int(stat)+1
