@@ -129,5 +129,15 @@ class User:
         elif operator == '-':
             stat = int(stat)-1
         return self.db.update('answer', f"statis='{stat}'", f"id='{id}'")
+    
+    def upd_status(self, id, login, operator):
+        data = self.db.read(f"answer WHERE id='{id}'", 'status,post_id')[0][0]
+        login_is = self.db.read(f"posts WHERE id='{data}'", 'login')[0][0]
+        if login==login_is:
+            if operator == '+':
+                stat = int(stat)+1
+            elif operator == '-':
+                stat = int(stat)-1
+        return self.db.update('answer', f"statis='{stat}'", f"id='{id}'")
 # igorkravchenko
 # dmodv
