@@ -136,21 +136,21 @@ def posts_read_question(post_id):
     
 @app.route('/answer/<int:id>/statis', methods=['POST'])
 def answer_statis(id):
-    # try:
-    jsn = loads(request.data)
-    login = jsn['login']
-    passw = jsn['passw']
-    ck = users.check_user(login, passw)
-    if ck == 1:
+    try:
         jsn = loads(request.data)
-        operator = jsn['operator']
-        return jsonify({'status': users.upd_statis(id, operator)})
-    elif ck == 'mail':
-        return jsonify({'status': 'UnconfirmedEmail'})
+        login = jsn['login']
+        passw = jsn['passw']
+        ck = users.check_user(login, passw)
+        if ck == 1:
+            jsn = loads(request.data)
+            operator = jsn['operator']
+            return jsonify({'status': users.upd_statis(id, operator)})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
                 
-    #     return jsonify({'status': 'IncorrectValue'})
-    # except Exception as _ex:
-    #     return jsonify({'status': 'Erore'})
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        return jsonify({'status': 'Erore'})
 
 @app.route('/answer/<int:id>/status', methods=['POST'])
 def answer_status(id):
@@ -172,20 +172,20 @@ def answer_status(id):
     
 @app.route('/profile', methods=['POST'])
 def profile_info():
-    try:
-        jsn = loads(request.data)
-        login = jsn['login']
-        passw = jsn['passw']
-        ck = users.check_user(login, passw)
-        if ck == 1:
-            return jsonify(users.read_current_user(login))
-        elif ck == 'mail':
-            return jsonify({'status': 'UnconfirmedEmail'})
+    # try:
+    jsn = loads(request.data)
+    login = jsn['login']
+    passw = jsn['passw']
+    ck = users.check_user(login, passw)
+    if ck == 1:
+        return jsonify(users.read_current_user(login))
+    elif ck == 'mail':
+        return jsonify({'status': 'UnconfirmedEmail'})
             
-        return jsonify({'status': 'IncorrectValue'})
-    except Exception as _ex:
-        print(_ex)
-        return jsonify({'status': 'Erore'})
+    return jsonify({'status': 'IncorrectValue'})
+    # except Exception as _ex:
+    #     print(_ex)
+    #     return jsonify({'status': 'Erore'})
 
 
 app.run(debug=DEBUG_MODE, host=ALLOW_HOST, port=LOAD_PORT)
