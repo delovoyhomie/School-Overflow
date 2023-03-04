@@ -68,7 +68,7 @@ class User:
         return dt
     
     def read_current_post(self, id_post):
-        ans = self.db.read(f"answ WHERE id_post='{id_post}'", 'id,statis,login,body,doc,create_at,id_answ')
+        ans = self.db.read(f"answ WHERE id_post='{id_post}'", 'id,statis,login,body,doc,created_at,id_answ')
         post = self.db.read(f"posts WHERE id='{id_post}'", 'id,login,description,body,label,doc,status,created_at')[0]
         print(ans, post)
         dt = {'post':   {'id':post[0],
