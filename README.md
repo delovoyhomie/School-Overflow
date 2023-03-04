@@ -8,13 +8,17 @@ The non-commercial product was created by the Autobots team at the Q1 March 2023
 - login
 - passw
 
+Ответ: True/False/IncorrectValue/Erore
+
+---
+
 #### /question/create
 - login         (обязательный)
 - passw         (обязательный)
 - description   (обязательный)
 - text_body     (обязательный)
-- label         (не обязательный)
-- document      (не обязательный)
+- label         
+- document      
 
 Примечание document хранит файлы в base64 разделённый пробелами.
 
@@ -23,32 +27,46 @@ data = b64encode(data).decode()
 data = data+' '+data+' '+data+' '+data
 ```
 
-Ответ: True/False/IncorrectValue/Erore
+Ответ: True/False/IncorrectValue/UnconfirmedEmail/Erore
 
-#### /question/id/answer
+---
+
+#### /question/(id)/answer
 - login         (обязательный)
 - passw         (обязательный)
 - post_id       (обязательный)
 - text_body     (обязательный)
-- document      (не обязательный)
+- document      
 
-Ответ: True/False/IncorrectValue
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
+
+---
+
+#### /auth
+- login         (обязательный)
+- passw         (обязательный)
+
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
+
+---
 
 #### /question
 - login         (обязательный)
 - passw         (обязательный)
-- filter        (не обязательный)
+- filter        
 - - param
 - - values        
 
-Ответ: True/False/IncorrectValue/Erore
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
+
+---
 
 #### /question/question
 - login         (обязательный)
 - passw         (обязательный)
 - post_id       (обязательный)
 
-Ответ: False/IncorrectValue/Erore/
+Ответ: False / IncorrectValue / UnconfirmedEmail / Erore / 
 ```json
 {
 "0": {"doc": "dmodv_llgytwc7guflbetojyby",
@@ -71,8 +89,10 @@ data = data+' '+data+' '+data+' '+data
 }
 ```
 
+---
+
 #### /profile
 - login         (обязательный)
 - passw         (обязательный)
 
-Ответ: False/IncorrectValue/Erore
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
