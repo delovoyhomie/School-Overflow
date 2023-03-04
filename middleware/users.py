@@ -87,8 +87,8 @@ class User:
                             'login':ans[i][2],
                             'text_body':ans[i][3],
                             'doc':ans[i][4],
-                            'create_at':ans[5],
-                            'id_answ':ans[6]}
+                            'create_at':ans[i][5],
+                            'id_answ':ans[i][6]}
         else: dt['0'] = 'None'
             
         return dt
