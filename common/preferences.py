@@ -10,4 +10,4 @@ PASSWORD_DB     = 'lWglL6Pisq7'
 DB_NAME         = 'xakaton'
 
 # System info
-FULL_LINK = 'http://10.0.2.15:8023'
+FULL_LINK = 'http://95.181.224.52:8023'
