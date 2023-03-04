@@ -26,7 +26,7 @@ class DB:
                     id      serial PRIMARY KEY,    
                     login   varchar(40) UNIQUE NOT NULL,
                     passw   varchar(40) NOT NULL,
-                    tg_id   serial UNIQUE
+                    mail   serial UNIQUE
                 );
                 CREATE TABLE IF NOT EXISTS posts (
                     id          serial PRIMARY KEY,    

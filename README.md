@@ -33,7 +33,9 @@ data = data+' '+data+' '+data+' '+data
 #### /posts
 - login         (обязательный)
 - passw         (обязательный)
-- label         (не обязательный)
+- filter        (не обязательный)
+- - param
+- - values        
 
 #### /posts/question
 - login         (обязательный)

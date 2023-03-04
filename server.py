@@ -22,8 +22,9 @@ def new_user():
         jsn = loads(request.data.decode()[5:])
         login = jsn['login']
         passw = jsn['passw']
-        print(login, passw)
-        return jsonify(users.create_user(login, passw))
+        mail = jsn['mail']
+        print(login, passw, mail)
+        return jsonify(users.create_user(login, passw,mail))
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'False'})
@@ -83,10 +84,10 @@ def posts_read():
         passw = jsn['passw']
         if users.check_user(login, passw):
             try:
-                label = jsn['label']
+                filter = jsn['filter']
             except:
                 label = None
-            return jsonify(users.read_posts(label))
+            return jsonify(users.read_posts(filter))
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)

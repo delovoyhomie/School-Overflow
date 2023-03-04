@@ -16,9 +16,9 @@ class User:
         response = requests.post(url, data={'chat_id': chat_id, 'text': text})
         return response.json()['ok']
 
-    def create_user(self, login, passw):
+    def create_user(self, login, passw, mail):
         if self.db.read_one('users', '*', f"login='{login}'") == None:
-            if self.db.write('users', "login,passw", f"'{login}','{hash_password(passw)}'"):
+            if self.db.write('users', "login,passw,mail", f"'{login}','{hash_password(passw)}','{mail}'"):
                 return {'status': 'True'}
             return {'status': 'False'}
         return {'status': 'Busy'}
@@ -37,8 +37,8 @@ class User:
             doc = save_document(login, doc)
         self.db.write('answ', 'login, body, id_post, doc, statis', f"'{login}', '{body}', '{id_post}', '{doc}', '0'")
 
-    def read_posts(self, label):
-        tbl = 'posts' if label==None else f"posts WHERE label='{label}'"
+    def read_posts(self, filter):
+        tbl = 'posts' if filter==None else f"posts WHERE {filter['param']}='{filter['values']}'"
         ans = self.db.read(tbl, '*')
         dt = {}
         for i in range(len(ans)):
