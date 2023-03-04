@@ -71,14 +71,14 @@ class User:
         ans = self.db.read(f"answ WHERE id_post='{id_post}'", 'id,statis,login,text_body,doc,create_at,id_answ')
         post = self.db.read(f"posts WHERE id='{id_post}'", 'id,login,description,body,label,doc,status,created_at')[0]
         print(ans, post)
-        dt = {'post':   {'id':post[i][0],
-                          'login':post[i][1],
-                          'description':post[i][2],
-                          'body':post[i][3],
-                          'label':post[i][4],
-                          'doc':post[i][5],
-                          'status':post[i][6],
-                          'created_at':post[i][7]}}
+        dt = {'post':   {'id':post[0],
+                          'login':post[1],
+                          'description':post[2],
+                          'body':post[3],
+                          'label':post[4],
+                          'doc':post[5],
+                          'status':post[6],
+                          'created_at':post[7]}}
         
         for i in range(len(ans)):
             dt[str(i)] = {'id':ans[i][0],
