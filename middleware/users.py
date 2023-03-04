@@ -125,7 +125,7 @@ class User:
         return dt
     
     def upd_statis(self, id, operator):
-        stat = self.db.read(f"answer WHERE id='{id}'", 'statis')
+        stat = self.db.read(f"answ WHERE id='{id}'", 'statis')
         if operator == '+':
             stat = int(stat)+1
         elif operator == '-':
@@ -133,7 +133,7 @@ class User:
         return self.db.update('answ', f"statis='{stat}'", f"id='{id}'")
     
     def upd_status(self, id, login, operator):
-        data = self.db.read(f"answer WHERE id='{id}'", 'status,post_id')
+        data = self.db.read(f"answ WHERE id='{id}'", 'status,post_id')
         print(data)
         login_is = self.db.read(f"posts WHERE id='{data}'", 'login')
         print(data)
