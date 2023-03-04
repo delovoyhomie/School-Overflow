@@ -80,7 +80,7 @@ class User:
                           'status':post[6],
                           'created_at':post[7]}}
         print(ans)
-        if ans:
+        if ans != 0:
             for i in range(len(ans)):
                 dt[str(i)] = {'id':ans[i][0],
                             'statis':ans[i][1],
