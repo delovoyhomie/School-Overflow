@@ -31,7 +31,7 @@ data = data+' '+data+' '+data+' '+data
 
 ---
 
-#### /question/(id)/answer
+#### /question/(id)/answer (создание ответа)
 - login         (обязательный)
 - passw         (обязательный)
 - text_body     (обязательный)
@@ -42,7 +42,7 @@ data = data+' '+data+' '+data+' '+data
 
 ---
 
-#### /auth
+#### /auth (авторизация)
 - login         (обязательный)
 - passw         (обязательный)
 
@@ -50,42 +50,57 @@ data = data+' '+data+' '+data+' '+data
 
 ---
 
-#### /question
-- login         (обязательный)
-- passw         (обязательный)
+#### /questions (все вопросы)
 - filter        
 - - param
 - - values        
 
+Ответ: Erore /
+```json
+"post": {
+    "description": "Придумали очень крутую штуку, кто не согласен, то не прав",
+    "id": 1,
+    "label": "Химия",
+    "login": "igorkravchenko",
+    "create_at": "2023-03-05"}
+```
+
+---
+
+#### /answer/(int:id)/statis (повысить или понизить рейтинг ответа)
+- login         (обязательный)
+- passw         (обязательный)
+- operator (**-**/**+**)     (обязательный)
+
 Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
 
 ---
 
-#### /question/question
-- login         (обязательный)
-- passw         (обязательный)
-- post_id       (обязательный)
+#### /question/(id) (конкретный вопрос)
 
-Ответ: False / IncorrectValue / UnconfirmedEmail / Erore / 
+Ответ: Erore / 
 ```json
 {
 "0": {"doc": "dmodv_llgytwc7guflbetojyby",
     "id": 1,
     "login": "dmodv",
     "statis": 0,
-    "text_body": "Пришлю ему его же скрин АХХАХАХАХ"},
+    "text_body": "Пришлю ему его же скрин АХХАХАХАХ",
+    "create_at": "2023-03-05"},
 "1": {"doc": "None",
     "id": 2,
     "login": "dmodv",
     "statis": 0,
-    "text_body": "Нет я прав, а ты пред несёшь АХАХАХАХХАХАХАХХАХАХАХАХЗХАХАХАХХАХАХАХХАХАХА"},
+    "text_body": "Нет я прав, а ты пред несёшь АХАХАХАХХАХАХАХХАХАХАХАХЗХАХАХАХХАХАХАХХАХАХА",
+    "create_at": "2023-03-05"},
 "post": {
     "description": "Придумали очень крутую штуку, кто не согласен, то не прав",
     "doc": "igorkravchenko_h4wtoj6mvf1cmfyy6hy0",
     "id": 1,
     "label": "Химия",
     "login": "igorkravchenko",
-    "text_body": "Мега крутая тема"}
+    "text_body": "Мега крутая тема",
+    "create_at": "2023-03-05"}
 }
 ```
 

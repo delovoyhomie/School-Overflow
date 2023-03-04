@@ -114,19 +114,13 @@ def auth():
 def posts_read():
     try:
         jsn = loads(request.data)
-        login = jsn['login']
-        passw = jsn['passw']
-        ck = users.check_user(login, passw)
-        if ck == 1:
-            try:
-                filter = jsn['filter']
-            except:
-                filter = None
-            return jsonify(users.read_posts(filter))
-        elif ck == 'mail':
-            return jsonify({'status': 'UnconfirmedEmail'})
-            
-        return jsonify({'status': 'IncorrectValue'})
+        
+        try:
+            filter = jsn['filter']
+        except:
+            filter = None
+        return jsonify(users.read_posts(filter))
+    
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
@@ -135,25 +129,29 @@ def posts_read():
 @app.route('/question/<int:post_id>', methods=['POST'])
 def posts_read_question(post_id):
     try:
-        jsn = loads(request.data)
-        login = jsn['login']
-        passw = jsn['passw']
-        ck = users.check_user(login, passw)
-        if ck == 1:
-            return jsonify(users.read_current_post(str(post_id)))
-        elif ck == 'mail':
-            return jsonify({'status': 'UnconfirmedEmail'})
-            
-        return jsonify({'status': 'IncorrectValue'})
+        return jsonify(users.read_current_post(str(post_id)))
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
     
 @app.route('answer/<int:id>/statis', methods=['POST'])
-def question_statis(id):
-    jsn = loads(request.data)
-    operator = jsn['operator']
-    return jsonify({'status': users.upd_statis(id, operator)})
+def answer_statis(id):
+    try:
+        jsn = loads(request.data)
+        login = jsn['login']
+        passw = jsn['passw']
+        ck = users.check_user(login, passw)
+        if ck == 1:
+            jsn = loads(request.data)
+            operator = jsn['operator']
+            return jsonify({'status': users.upd_statis(id, operator)})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        return jsonify({'status': 'Erore'})
+    
     
 @app.route('/profile', methods=['POST'])
 def profile_info():
