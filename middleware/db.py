@@ -77,6 +77,15 @@ class DB:
                 return cursor.fetchone()
         except:
             return 0
+        
+    def update(self, table, seter, condition):
+        try:
+            print(f"UPDATE {table} SET {seter} WHERE {condition}")
+            with self.connection.cursor() as cursor:
+                cursor.execute(f"UPDATE {table} SET {seter} WHERE {condition}")
+            return True
+        except:
+            return False
 
     def delete(self, table, column, values):
         try:

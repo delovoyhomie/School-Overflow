@@ -18,23 +18,24 @@ def homes():
 
 @app.route('/new_user', methods=['POST'])
 def new_user():
-    # try:s
-    jsn = loads(request.data)
-    login = jsn['login']
-    passw = jsn['passw']
-    mail = jsn['mail']
-    return jsonify(users.create_user(login, passw,mail))
-    # except Exception as _ex:
-    #     print(_ex)
-    #     return jsonify({'status': 'False'})
+    try:
+        jsn = loads(request.data)
+        print(jsn)
+        login = jsn['login']
+        passw = jsn['passw']
+        mail = jsn['mail']
+        return jsonify(users.create_user(login, passw,mail))
+    except Exception as _ex:
+        print(_ex)
+        return jsonify({'status': 'False'})
     
-# @app.route('/confirmation/<link>', methods=['POST'])
-# def confirmation_new_user(link):
-#     try:
-#         return jsonify(users.create_user(login, passw,mail))
-#     except Exception as _ex:
-#         print(_ex)
-#         return jsonify({'status': 'False'})
+@app.route('/confirmation/<link>', methods=['get'])
+def confirmation_new_user(link):
+    try:
+        return users.confirmation_user(link)
+    except Exception as _ex:
+        print(_ex)
+        return "<h1>Технические неполадки</h1>"
 
 
 @app.route('/question/create', methods=['POST'])
@@ -43,7 +44,8 @@ def posts_create():
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             description = jsn['description']
             text_body = jsn['text_body']
             try:
@@ -56,6 +58,8 @@ def posts_create():
                 doc = None
             users.create_post(login, description, text_body, label, doc)
             return jsonify({'status': 'True'})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
@@ -68,7 +72,8 @@ def posts_answer(post_id):
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             post_id = str(post_id)
             body = jsn['text_body']
             try:
@@ -81,6 +86,9 @@ def posts_answer(post_id):
                 id_answ = None
             users.create_answ(login, body, post_id, doc, id_answ)
             return jsonify({'status': 'True'})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
@@ -92,8 +100,12 @@ def auth():
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             return jsonify({'status': 'True'})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         return jsonify({'status': 'Erore'})
@@ -104,12 +116,16 @@ def posts_read():
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             try:
                 filter = jsn['filter']
             except:
                 filter = None
             return jsonify(users.read_posts(filter))
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
@@ -122,8 +138,12 @@ def posts_read_question(post_id):
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             return jsonify(users.read_current_post(str(post_id)))
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
@@ -139,8 +159,12 @@ def profile_info():
         jsn = loads(request.data)
         login = jsn['login']
         passw = jsn['passw']
-        if users.check_user(login, passw):
+        ck = users.check_user(login, passw)
+        if ck == 1:
             return jsonify(users.read_current_user(login))
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
         return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)

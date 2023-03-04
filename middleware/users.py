@@ -14,14 +14,26 @@ class User:
 
     def create_user(self, login, passw, mail):
         if self.db.read_one('users', '*', f"login='{login}'") == None:
-            link = '1'#self.email.confirmation_by_email(mail)
+            link = self.email.confirmation_by_email(mail)
             if self.db.write('users', "login,passw,mail,mail_status", f"'{login}','{hash_password(passw)}','{mail}','{link}'"):
                 return {'status': 'True'}
             return {'status': 'False'}
         return {'status': 'Busy'}
     
+    def confirmation_user(self, link):
+        login = self.db.read_one('users', 'login', f"mail_status='{link}'")
+        print(login)
+        if login:
+            if self.db.update('users', f"mail_status='1'", f"login='{login[0]}'"):
+                return "<h1>Почта подтверждена успешно</h1>"
+            return "<h1>Технические неполадки</h1>"
+        else:
+            return "<h1>Ссылка не действительна</h1>"
+    
     def check_user(self, login, passw):
-        hpassw = self.db.read_one('users', 'passw', f"login='{login}'")[0]
+        hpassw, mls = self.db.read_one('users', 'passw,mail_status', f"login='{login}'")[0]
+        if mls != '1':
+            return 'mail'
         return check_password(hpassw, passw)
     
     def create_post(self, login, description, body, label, doc):

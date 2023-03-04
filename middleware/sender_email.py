@@ -40,7 +40,7 @@ class Emailer:
 На сайте schooloverflow.ru была произведена регистрация с использованием вашей электронной почты.
 Email: {address}
 Для подтверждения регистрации пройдите по ссылке:
-{FULL_LINK}/{link}
+{FULL_LINK}/confirmation/{link}
 
 С уважением,
 Администрация schooloverflow.ru'''
