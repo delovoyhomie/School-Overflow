@@ -153,7 +153,7 @@ def answer_statis(id):
         return jsonify({'status': 'Erore'})
 
 @app.route('/answer/<int:id>/status', methods=['POST'])
-def answer_statis(id):
+def answer_status(id):
     try:
         jsn = loads(request.data)
         login = jsn['login']
