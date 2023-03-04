@@ -100,26 +100,26 @@ class User:
         dt = {'user':   { 'id':user[0],
                           'login':user[1],
                           'mail': user[2]},
-                          'answer': {},
-                          'posts': {}}
+                          'answer': [],
+                          'posts': []}
         posts = self.db.read(f"posts WHERE login='{login}'", 'id,description,label,status')
         ans = self.db.read(f"answ WHERE login='{login}'", 'id,body,statis')
         print(posts, ans)
         if ans:
             for i in range(len(ans)):
-                dt['answer'][str(i)] = {'id':ans[i][0],
+                dt['answer'].append({'id':ans[i][0],
                                         'text_body':ans[i][1],
                                         'statis':ans[i][2]
-                                        }
-        else: dt['answer']['0'] = 'None'
+                                        })
+        else: dt['answer'].append('None')
 
         if posts != []:
             for i in range(len(posts)):
-                dt['posts'][str(i)] = { 'id': posts[i][0],
+                dt['posts'].append({ 'id': posts[i][0],
                                         'description':posts[i][1],
                                         'label':posts[i][2],
-                                        'status':posts[i][3]}
-        else: dt['posts']['0']='None'
+                                        'status':posts[i][3]})
+        else: dt['posts'].append('None')
 
         return dt
     
