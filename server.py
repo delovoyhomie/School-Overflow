@@ -114,19 +114,11 @@ def auth():
 def posts_read():
     try:
         jsn = loads(request.data)
-        login = jsn['login']
-        passw = jsn['passw']
-        ck = users.check_user(login, passw)
-        if ck == 1:
-            try:
-                filter = jsn['filter']
-            except:
-                filter = None
-            return jsonify(users.read_posts(filter))
-        elif ck == 'mail':
-            return jsonify({'status': 'UnconfirmedEmail'})
-            
-        return jsonify({'status': 'IncorrectValue'})
+        try:
+            filter = jsn['filter']
+        except:
+            filter = None
+        return jsonify(users.read_posts(filter))
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})

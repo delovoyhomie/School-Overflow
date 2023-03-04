@@ -32,7 +32,8 @@ class User:
     
     def check_user(self, login, passw):
         hpassw = self.db.read_one('users', 'passw,mail_status', f"login='{login}'")[0]
-        if 0:
+        mail = self.db.read_one('users', 'mail_status', f"login='{login}'")[0]
+        if mail != '1':
             return 'mail'
         return check_password(hpassw, passw)
     
