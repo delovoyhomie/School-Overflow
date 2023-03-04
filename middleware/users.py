@@ -133,8 +133,10 @@ class User:
         return self.db.update('answ', f"statis='{stat}'", f"id='{id}'")
     
     def upd_status(self, id, login, operator):
-        data = self.db.read(f"answer WHERE id='{id}'", 'status,post_id')[0][0]
-        login_is = self.db.read(f"posts WHERE id='{data}'", 'login')[0][0]
+        data = self.db.read(f"answer WHERE id='{id}'", 'status,post_id')
+        print(data)
+        login_is = self.db.read(f"posts WHERE id='{data}'", 'login')
+        print(data)
         if login==login_is:
             if operator == '+':
                 stat = int(stat)+1
