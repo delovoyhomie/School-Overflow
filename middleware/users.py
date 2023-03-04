@@ -79,15 +79,16 @@ class User:
                           'doc':post[5],
                           'status':post[6],
                           'created_at':post[7]}}
-        
-        for i in range(len(ans)):
-            dt[str(i)] = {'id':ans[i][0],
-                          'statis':ans[i][1],
-                          'login':ans[i][2],
-                          'text_body':ans[i][3],
-                          'doc':ans[i][4],
-                          'create_at':ans[5],
-                          'id_answ':ans[6]}
+        if ans:
+            for i in range(len(ans)):
+                dt[str(i)] = {'id':ans[i][0],
+                            'statis':ans[i][1],
+                            'login':ans[i][2],
+                            'text_body':ans[i][3],
+                            'doc':ans[i][4],
+                            'create_at':ans[5],
+                            'id_answ':ans[6]}
+        else: dt['answer']['0'] = 'None'
             
         return dt
     
