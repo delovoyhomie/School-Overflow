@@ -124,6 +124,8 @@ class User:
     
     def upd_statis(self, id, operator):
         stat = self.db.read(f"answer WHERE id='{id}'", 'statis')[0][0]
+        print(stat)
+        print(type(stat))
         if operator == '+':
             stat = int(stat)+1
         elif operator == '-':
