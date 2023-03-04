@@ -78,18 +78,19 @@ class User:
                           'label':post[4],
                           'doc':post[5],
                           'status':post[6],
-                          'created_at':post[7]}}
+                          'created_at':post[7]},
+                'answer' : []}
         print(ans)
         if ans != 0:
             for i in range(len(ans)):
-                dt[str(i)] = {'id':ans[i][0],
+                dt['answer'].append({'id':ans[i][0],
                             'statis':ans[i][1],
                             'login':ans[i][2],
                             'text_body':ans[i][3],
                             'doc':ans[i][4],
                             'create_at':ans[i][5],
-                            'id_answ':ans[i][6]}
-        else: dt['0'] = 'None'
+                            'id_answ':ans[i][6]})
+        else: dt['answer'] = 'None'
             
         return dt
     
