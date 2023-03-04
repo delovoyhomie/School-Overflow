@@ -32,8 +32,7 @@ class User:
     
     def check_user(self, login, passw):
         hpassw = self.db.read_one('users', 'passw,mail_status', f"login='{login}'")[0]
-        mail = self.db.read_one('users', 'mail_status', f"login='{login}'")[0]
-        if mail != '1':
+        if 0:
             return 'mail'
         return check_password(hpassw, passw)
     
@@ -120,5 +119,13 @@ class User:
         else: dt['posts']['0']='None'
 
         return dt
+    
+    def upd_statis(self, id, operator):
+        stat = self.db.read(f"answer WHERE id='{id}'", 'statis')[0][0]
+        if operator == '+':
+            stat = int(stat)+1
+        elif operator == '-':
+            stat = int(stat)-1
+        return self.db.update('answer', f"statis='{stat}'", f"id='{id}'")
 # igorkravchenko
 # dmodv

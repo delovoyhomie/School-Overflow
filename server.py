@@ -114,11 +114,19 @@ def auth():
 def posts_read():
     try:
         jsn = loads(request.data)
-        try:
-            filter = jsn['filter']
-        except:
-            filter = None
-        return jsonify(users.read_posts(filter))
+        login = jsn['login']
+        passw = jsn['passw']
+        ck = users.check_user(login, passw)
+        if ck == 1:
+            try:
+                filter = jsn['filter']
+            except:
+                filter = None
+            return jsonify(users.read_posts(filter))
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
+            
+        return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
@@ -141,9 +149,11 @@ def posts_read_question(post_id):
         print(_ex)
         return jsonify({'status': 'Erore'})
     
-@app.route('/question/<int:post_id>/statis')
-def question_statis(post_id):
-    return jsonify({'status': 'True'})
+@app.route('answer/<int:id>/statis', methods=['POST'])
+def question_statis(id):
+    jsn = loads(request.data)
+    operator = jsn['operator']
+    return jsonify({'status': users.upd_statis(id, operator)})
     
 @app.route('/profile', methods=['POST'])
 def profile_info():
