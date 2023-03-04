@@ -27,7 +27,7 @@ data = b64encode(data).decode()
 data = data+' '+data+' '+data+' '+data
 ```
 
-Ответ: True/False/IncorrectValue/UnconfirmedEmail/Erore
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
 
 ---
 

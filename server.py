@@ -134,7 +134,7 @@ def posts_read_question(post_id):
         print(_ex)
         return jsonify({'status': 'Erore'})
     
-@app.route('answer/<int:id>/statis', methods=['POST'])
+@app.route('/answer/<int:id>/statis', methods=['POST'])
 def answer_statis(id):
     try:
         jsn = loads(request.data)
