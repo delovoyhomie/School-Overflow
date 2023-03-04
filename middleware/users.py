@@ -139,5 +139,5 @@ class User:
             elif operator == '-':
                 stat = int(stat)-1
         return self.db.update('answ', f"statis='{stat}'", f"id='{id}'")
-# igorkravchenko
+
 # dmodv
