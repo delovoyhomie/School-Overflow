@@ -47,8 +47,9 @@ class User:
         self.db.write('answ', 'login, body, id_post, doc, statis, id_answ', f"'{login}', '{body}', '{id_post}', '{doc}', '0', '{id_answ}'")
 
     def read_posts(self, filter):
-        param = filter['param']
-        values = filter['values']
+        if filter != None:
+            param = filter['param']
+            values = filter['values']
         tbl = 'posts' if filter==None else f"posts WHERE {param}='{values}'"
         ans = self.db.read(tbl, 'id,login,description,body,label,doc,status,created_at')
         dt = {}
