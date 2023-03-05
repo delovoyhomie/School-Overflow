@@ -12,21 +12,21 @@ def generate_name_files(len_token=20):
     return new_token
 
 def save_document(user: str, text: str):
-    try:
-        names = []
-        text = text.split()
-        doc = [b64decode(i.encode()) for i in text]
-        print(len(doc))
-        for i in doc:
-            print(len(i))
-            name = f"{user}_{generate_name_files()}"
-            with open(f"static/{name}.jpg", 'wb') as file:
-                file.write(i)
-            names.append(name)
-        names = ' '.join(names)
-        return names
-    except:
-        return 0
+    # try:
+    names = []
+    text = text.split()
+    doc = [b64decode(i.encode()) for i in text]
+    print(len(doc))
+    for i in doc:
+        print(len(i))
+        name = f"{user}_{generate_name_files()}"
+        with open(f"static/{name}.jpg", 'wb') as file:
+            file.write(i)
+        names.append(name)
+    names = ' '.join(names)
+    return names
+    # except:
+    #     return 0
         
     
 if __name__ == '__main__':
