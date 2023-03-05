@@ -68,31 +68,31 @@ def posts_create():
 
 @app.route('/question/<int:post_id>/answer', methods=['POST'])
 def posts_answer(post_id):
-    try:
-        jsn = loads(request.data)
-        login = jsn['login']
-        passw = jsn['passw']
-        ck = users.check_user(login, passw)
-        if ck == 1:
-            post_id = str(post_id)
-            body = jsn['text_body']
-            try:
-                doc = jsn['document']
-            except:
-                doc = None
-            try:
-                id_answ = jsn['id_answ']
-            except:
-                id_answ = -1
-            users.create_answ(login, body, post_id, doc, id_answ)
-            return jsonify({'status': 'True'})
-        elif ck == 'mail':
-            return jsonify({'status': 'UnconfirmedEmail'})
+    # try:
+    jsn = loads(request.data)
+    login = jsn['login']
+    passw = jsn['passw']
+    ck = users.check_user(login, passw)
+    if ck == 1:
+        post_id = str(post_id)
+        body = jsn['text_body']
+        try:
+            doc = jsn['document']
+        except:
+            doc = None
+        try:
+            id_answ = jsn['id_answ']
+        except:
+            id_answ = -1
+        users.create_answ(login, body, post_id, doc, id_answ)
+        return jsonify({'status': 'True'})
+    elif ck == 'mail':
+        return jsonify({'status': 'UnconfirmedEmail'})
             
-        return jsonify({'status': 'IncorrectValue'})
-    except Exception as _ex:
-        print(_ex)
-        return jsonify({'status': 'Erore'})
+        # return jsonify({'status': 'IncorrectValue'})
+    # except Exception as _ex:
+    #     print(_ex)
+    #     return jsonify({'status': 'Erore'})
 
 @app.route('/auth', methods=['POST'])
 def auth():
