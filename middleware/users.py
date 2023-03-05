@@ -50,7 +50,7 @@ class User:
         if filter != None:
             param = filter['param']
             values = filter['values']
-        tbl = 'posts' if filter==None else f"posts WHERE {param}='{values}'"
+        tbl = 'posts' if filter==None else f"posts WHERE {param} ILIKE '%{values}%'"
         ans = self.db.read(f'{tbl} ORDER BY created_at', 'id,login,description,body,label,doc,status,created_at')
         dt = {}
         for i in range(len(ans)):

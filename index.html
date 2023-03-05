@@ -5,12 +5,17 @@
 </head>
 <body>
     <script>
-        fetch('http://95.181.224.52:8023/question/10', {
+        fetch('http://95.181.224.52:8023/questions', {
             method: 'POST',
             body: JSON.stringify({
                 login: 'george',
                 passw: 'george',
-                operator: '+'
+                filter:{
+                    param: 'created_at',
+                    values: '02:08:47'   
+                }        
+
+
             })
             }).then(res => {
                 return res.json().then(data => {
@@ -18,18 +23,7 @@
                 })
             })
         
-        // fetch('http://95.181.224.52:8023/answer/12/status', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         login: 'george',
-        //         passw: 'george',
-        //         operator: '+'
-        //     })
-        //     }).then(res => {
-        //         return res.json().then(data => {
-        //             console.log(data)
-        //         })
-        //     })
+//       
         
     </script>
 </body>
