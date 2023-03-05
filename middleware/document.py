@@ -11,12 +11,10 @@ def generate_name_files(len_token=20):
         new_token += choice(GEN_CONST)
     return new_token
 
-def save_document(user: str, text: str):
+def save_document(user: str, text):
     # try:
     names = []
-    text = text.split()
-    with open(f"static/log.txt", 'wb') as file:
-            file.write(json.dumps(text))
+    text = text.decode().split()
     doc = [b64decode(i.encode()) for i in text]
     print(len(doc))
     for i in doc:
