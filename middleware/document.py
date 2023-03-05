@@ -14,17 +14,15 @@ def generate_name_files(len_token=20):
 def save_document(user: str, text):
     # try:
     names = []
-    print(text)
-    print(type(text))
-    text = text.decode().split()
-    doc = [b64decode(i.encode()) for i in text]
-    print(len(doc))
+    text = text.split()
+    doc = [b64decode(i.replace('\n', '').replace('\r', '').replace('\t', '')) for i in text]
     for i in doc:
-        print(len(i))
+        print(i)
         name = f"{user}_{generate_name_files()}"
-        with open(f"static/{name}.jpg", 'wb') as file:
+        with open(f"/root/School-Overflow/static/{name}.jpg", 'wb') as file:
             file.write(i)
         names.append(name)
+    print(names)
     names = ' '.join(names)
     return names
     # except Exception as _ex:
