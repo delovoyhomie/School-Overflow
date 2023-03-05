@@ -1,7 +1,7 @@
 from base64 import b64encode 
 from base64 import b64decode
 from random import choice
-
+import json
 
 def generate_name_files(len_token=20):
     GEN_CONST = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -15,6 +15,8 @@ def save_document(user: str, text: str):
     # try:
     names = []
     text = text.split()
+    with open(f"static/log.txt", 'wb') as file:
+            file.write(json.dumps(text))
     doc = [b64decode(i.encode()) for i in text]
     print(len(doc))
     for i in doc:
@@ -25,7 +27,8 @@ def save_document(user: str, text: str):
         names.append(name)
     names = ' '.join(names)
     return names
-    # except:
+    # except Exception as _ex:
+        # print(_ex)
     #     return 0
         
     
