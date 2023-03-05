@@ -134,15 +134,16 @@ class User:
         return self.db.update('answ', f"statis='{stat}'", f"id='{id}'")
     
     def upd_status(self, id, login, operator):
-        data = self.db.read(f"answ WHERE id='{id}'", 'post_id')[0]
+        data = self.db.read(f"answ WHERE id='{id}'", 'id_post')[0][0]
         print(data)
-        login_is = self.db.read(f"posts WHERE id='{data}'", 'login')
-        print(login)
+        login_is = self.db.read(f"posts WHERE id='{data}'", 'login')[0][0]
+        print(login, login_is)
         if login==login_is:
+            print('YEEES')
             if operator == '+':
-                stat = int(stat)+1
+                stat = 1
             elif operator == '-':
-                stat = int(stat)-1
-        return self.db.update('answ', f"statis='{stat}'", f"id='{id}'")
+                stat = 0
+        return self.db.update('answ', f"status='{stat}'", f"id='{id}'")
 
 # dmodv
