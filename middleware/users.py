@@ -144,6 +144,6 @@ class User:
                 stat = 1
             elif operator == '-':
                 stat = 0
-        return self.db.update('answ', f"status='{stat}'", f"id='{id}'")
+        return self.db.update('answ', f"status='{stat}'", f"id='{id}'") and self.db.update('posts', f"status='{stat}'", f"id='{data}'")
 
 # dmodv
