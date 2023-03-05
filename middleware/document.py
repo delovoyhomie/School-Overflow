@@ -14,7 +14,9 @@ def generate_name_files(len_token=20):
 def save_document(user: str, text: str):
     try:
         names = []
+        print(len(text))
         text = text.split(' ')
+        print(len(text))
         doc = [b64decode(i.encode()) for i in text]
         for i in doc:
             name = f"{user}_{generate_name_files()}"

@@ -52,8 +52,8 @@ data = data+' '+data+' '+data+' '+data
 
 #### /questions (все вопросы)
 - filter        
-- - param (login / data / descript / body / label / status)
-- - values        
+- - param (label / status)
+- - values
 
 Ответ: Erore /
 ```json
