@@ -76,6 +76,15 @@ data = data+' '+data+' '+data+' '+data
 
 ---
 
+### /answer/(int:id)/status (пометить ответ как закрытый)
+- login         (обязательный)
+- passw         (обязательный)
+- operator (**-**/**+**)     (обязательный)
+
+Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
+
+---
+
 #### /question/(id) (конкретный вопрос)
 
 Ответ: Erore / 
