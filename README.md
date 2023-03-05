@@ -68,8 +68,8 @@ data = data+' '+data+' '+data+' '+data
 ---
 
 #### /answer/(int:id)/statis (повысить или понизить рейтинг ответа)
-- login         (обязательный)
-- passw         (обязательный)
+- login                      (обязательный)
+- passw                      (обязательный)
 - operator (**-**/**+**)     (обязательный)
 
 Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
@@ -77,8 +77,8 @@ data = data+' '+data+' '+data+' '+data
 ---
 
 ### /answer/(int:id)/status (пометить ответ как закрытый)
-- login         (обязательный)
-- passw         (обязательный)
+- login                      (обязательный)
+- passw                      (обязательный)
 - operator (**-**/**+**)     (обязательный)
 
 Ответ: True / False / IncorrectValue / UnconfirmedEmail / Erore
