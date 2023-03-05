@@ -89,7 +89,7 @@ def posts_answer(post_id):
         elif ck == 'mail':
             return jsonify({'status': 'UnconfirmedEmail'})
                 
-            return jsonify({'status': 'IncorrectValue'})
+        return jsonify({'status': 'IncorrectValue'})
     except Exception as _ex:
         print(_ex)
         return jsonify({'status': 'Erore'})
