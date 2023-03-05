@@ -51,7 +51,7 @@ class User:
             param = filter['param']
             values = filter['values']
         tbl = 'posts' if filter==None else f"posts WHERE {param}='{values}'"
-        ans = self.db.read(tbl, 'id,login,description,body,label,doc,status,created_at')
+        ans = self.db.read(f'{tbl} ORDER BY created_at', 'id,login,description,body,label,doc,status,created_at')
         dt = {}
         for i in range(len(ans)):
             dt[str(i)] = {'id':ans[i][0],
@@ -144,7 +144,7 @@ class User:
                 stat = 1
             elif operator == '-':
                 stat = 0
-        self.db.update('answ', f"status='{stat}'", f"id='{id}'")
-        return self.db.update('posts', f"status='{stat}'", f"id='{data}'")
+        
+        return self.db.update('answ', f"status='{stat}'", f"id='{id}'") and self.db.update('posts', f"status='{stat}'", f"id='{data}'")
 
 # dmodv
