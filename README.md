@@ -52,7 +52,7 @@ data = data+' '+data+' '+data+' '+data
 
 #### /questions (все вопросы)
 - filter        
-- - param
+- - param (login / data / descript / body / label / status)
 - - values        
 
 Ответ: Erore /

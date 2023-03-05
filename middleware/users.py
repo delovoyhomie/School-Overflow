@@ -50,8 +50,15 @@ class User:
         if filter != None:
             param = filter['param']
             values = filter['values']
-        tbl = 'posts' if filter==None else f"posts WHERE {param} ILIKE '%{values}%'"
-        ans = self.db.read(f'{tbl} ORDER BY created_at', 'id,login,description,body,label,doc,status,created_at')
+            tbl = 'posts' if filter==None else f"posts WHERE {param}='{values}'"
+            if param == 'label':
+                ans = self.db.read(f"{tbl} WHERE {param} ILIKE '%{values}%' ORDER BY created_at", 'id,login,description,body,label,doc,status,created_at')
+            elif param == 'status':
+                ans = self.db.read(f"{tbl} WHERE {param}='{values}' ORDER BY created_at", 'id,login,description,body,label,doc,status,created_at')
+
+        else:
+            tbl = 'posts' if filter==None else f"posts WHERE {param}='{values}'"
+            ans = self.db.read(f'{tbl} ORDER BY created_at', 'id,login,description,body,label,doc,status,created_at')
         dt = {}
         for i in range(len(ans)):
             dt[str(i)] = {'id':ans[i][0],
