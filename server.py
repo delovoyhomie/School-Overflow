@@ -154,21 +154,21 @@ def answer_statis(id):
 
 @app.route('/answer/<int:id>/status', methods=['POST'])
 def answer_status(id):
-    # try:
-    jsn = loads(request.data)
-    login = jsn['login']
-    passw = jsn['passw']
-    ck = users.check_user(login, passw)
-    if ck == 1:
+    try:
         jsn = loads(request.data)
-        operator = jsn['operator']
-        return jsonify({'status': users.upd_status(id, login, operator)})
-    #     elif ck == 'mail':
-    #         return jsonify({'status': 'UnconfirmedEmail'})
+        login = jsn['login']
+        passw = jsn['passw']
+        ck = users.check_user(login, passw)
+        if ck == 1:
+            jsn = loads(request.data)
+            operator = jsn['operator']
+            return jsonify({'status': users.upd_status(id, login, operator)})
+        elif ck == 'mail':
+            return jsonify({'status': 'UnconfirmedEmail'})
             
-    return jsonify({'status': 'IncorrectValue'})
-    # except Exception as _ex:
-    #     return jsonify({'status': 'Erore'})
+        return jsonify({'status': 'IncorrectValue'})
+    except Exception as _ex:
+        return jsonify({'status': 'Erore'})
     
 @app.route('/profile', methods=['POST'])
 def profile_info():
