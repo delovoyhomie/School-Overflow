@@ -18,6 +18,19 @@
                 })
             })
         
+        fetch('http://95.181.224.52:8023/answer/12/status', {
+            method: 'POST',
+            body: JSON.stringify({
+                login: 'george',
+                passw: 'george',
+                operator: '+'
+            })
+            }).then(res => {
+                return res.json().then(data => {
+                    console.log(data)
+                })
+            })
+        
     </script>
 </body>
 </html>
